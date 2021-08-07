@@ -24,7 +24,7 @@ function login(){
             document.cookie=`token=${token}`;
             console.log(document.cookie);
            // alert( document.cookie)
-            window.location = 'index.html';
+            window.location = 'Index.html';
         }
         });
         $.ajax({
