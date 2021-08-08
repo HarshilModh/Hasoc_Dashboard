@@ -231,7 +231,7 @@
 
         </style>
 </head>
-<body onload="team_data()">
+<body onload="check_token()">
   
     <div class="class=container-fluid bg-white p-1 text-center">
    
@@ -263,7 +263,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                               <a class="dropdown-item" onclick="logout()">Log out</a>
-                              <a class="dropdown-item" data-toggle="modal" data-target="#myModal4">Forgot Password</a>
+                              <a class="dropdown-item" data-toggle="modal" data-target="#myModal4">Change Password</a>
                             </div>
                           </li>
                         
@@ -273,7 +273,7 @@
             </nav>
             <br> 
             
-           <div class="container-fluid row">
+           <div class="container-fluid row" id="Sort">
              <div class="col-md-8">
             <ul class="nav">
              <li class="nav-item dropdown"  style="font-size:large;" >
@@ -283,17 +283,17 @@
           
 
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-                <a class="dropdown-item"  onclick="team_data_f1_asc()">f1_asc</a>
-                <a class="dropdown-item" onclick="team_data_f1_desc()">f1_desc</a>
-                <a class="dropdown-item" onclick="team_data_timestamp_asc()">Timestamp_asc</a>
-                <a class="dropdown-item" onclick="team_data_timestamp_desc()">Timestamp_desc</a>
+                <a class="dropdown-item"  onclick="team_data_f1_asc()">score ascending</a>
+                <a class="dropdown-item" onclick="team_data_f1_desc()">score descending</a>
+                <a class="dropdown-item" onclick="team_data_timestamp_asc()">Timestamp ascending</a>
+                <a class="dropdown-item" onclick="team_data_timestamp_desc()">Timestamp descending</a>
 
               </div>
             </li>
       </ul>
     </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2 " id="Guide">
             <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal2">Submision Guidelines</button>
 
             </div>
@@ -345,6 +345,9 @@
             Guidelines
         </div>
         <div class="modal-footer">
+          <button type="submit" class="btn btn-info"  data-dismiss="modal" data-toggle="modal" data-target="#myModal">Got it</button>
+          <button type="submit" class="btn btn-info"  data-dismiss="modal" >Read more</button>
+
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         
 
@@ -385,17 +388,17 @@
         </div>
         <div class="modal-body">
           <form onsubmit="event.preventDefault();changepassword()">
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="text" class="form-control" id="Name" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
+           
+            <div class="mb-3">  
               <label for="exampleInputPassword1" class="form-label">Password</label>
               <input type="password" class="form-control" id="Password">
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">New Password</label>
+              <input type="password" class="form-control" id="NewPassword">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
               <input type="password" class="form-control" id="NewPassword">
             </div>
               
@@ -421,7 +424,7 @@
           
         </div>
         <div class="modal-body">
-            <form>
+            <form onsubmit="event.preventDefault();submit()">
               <div class="row">
                 <div class="col-md-2">
 
@@ -450,28 +453,37 @@
             <br>
             
             <div class="dropdown text-center">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-info dropdown-toggle" type="button" id="Language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Select Language/Subtask">
                 Select Language/Subtask
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" onclick="setlang('1A_English')">1A_English</a>
+                <a class="dropdown-item" onclick="setlang('1A_Hindi')">1A_Hindi</a>
+                <a class="dropdown-item" onclick="setlang('1A_Marathi')">1A_Marathi</a>
+                <a class="dropdown-item" onclick="setlang('1B_English')">1B_English</a>
+                <a class="dropdown-item" onclick="setlang('1B_Hindi')">1B_Hindi</a>
+                <a class="dropdown-item" onclick="setlang('2_ICHCL')">2_ICHCL</a>
               </div>
+              
             </div>
             
-              </form>
               <br>
               <div class="form-group">
                 
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Please enter"></textarea>
+                <input type="text" class="form-control" id="Submission_name" rows="3" placeholder="Please enter Submission name" ></input><br>
+                <span id="nameerror"> </span>
+
+                <textarea class="form-control" id="description" rows="3" placeholder="Please enter description"></textarea>
+
               </div>
+            </form>
+
               <br>
               <form class="text-center">
                 <div class="row">    <div class="col-md-3"></div>
                              <div class="form-group text-center">
                   
-                  <input type="file" class="btn form-control-file text-center" id="exampleFormControlFile1" >
+                  <input type="file" class="btn form-control-file text-center" id="File" name="File">
                 </div>
               </form>
             </div>
@@ -479,7 +491,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal">Submit</button>
+          <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="submit()">Submit</button>
 
         </div>
       </div>
@@ -488,35 +500,44 @@
   </div>
  
 
-  <footer class="footer fixed-bottom bg-dark" style="height: 17%;width: 100%;position: relative;">
-    <div class="container">
-        <div class="footer-cta pt-5 pb-5">
-            <div class="row">
-                <div class="col-xl-4 col-md-8 mb-30">
-                    
-                </div>
-                <div class="col-md-2 text-center" > 
-                <h4 style="color: #fff;">&copy;Hasoc</h4>
 
-                </div>
-                </div>
-                <div class="col-xl-4 col-md-4 mb-30 text-center" >
-                    <div class="single-cta">
-                        <i class="far fa-envelope-open"></i>
-                        <div class="cta-text">
-                            <h4>Mail us</h4>
-                            <span>shreysatapara@gmail.com</span><br>
-                            <span>hirenmadhu16@gmail.com</span><br>
-                          
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-</footer>
- 
+    <footer class="footer fixed-bottom bg-dark" style="height: 17%;width: 100%;position: relative;">
+      <div class="container">
+          <div class="footer-cta pt-5 pb-5">
+              <div class="row" style="margin-left: 20px;">
+                  <div class="col-xl-4 col-md-2 mb-30">
+                      <div class="single-cta ">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <div class="cta-text text-center">
+                              <h4>Contact US</h4>
+                              <span>Subscribe to our </span><br>
+                              <span><a href="https://groups.google.com/g/hasoc2019" style="text-decoration: none; color:#00FFFF;">mailing list </a></span>
+                                
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="col-xl-4 col-md-4 mb-30 "   >
+                    <h2 style="color: #fff;" class="">&copy;Hasoc
+
+                    </h2>
+                  </div>
+                  <div class="col-xl-4 col-md-4 mb-30 text-center">
+                      <div class="single-cta">
+                          <i class="far fa-envelope-open"></i>
+                          <div class="cta-text">
+                              <h4>Mail us</h4>
+                              <span>hasoc2019@googlegroups.com</span><br>
+                              <span>shreysatapara@gmail.com</span><br>
+                              <span>hirenmadhu16@gmail.com</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </footer>
 
   <!-- <footer class="footer fixed-bottom bg-dark text-center p-3" style="color:gainsboro">
    <div> 
@@ -537,7 +558,10 @@
     <div> 
       &copy;HASOC
      </div>
-  
+   <div class="col-md-2 text-center" > 
+                <h4 style="color: #fff;">&copy;Hasoc</h4>
+
+                </div>
 
 
 </footer> -->
@@ -545,12 +569,15 @@
 </body>
 <script src="Hasoc.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script>
   $('.switch label').on('click', function(){
   var indicator = $(this).parent('.switch').find('span');
   if ( $(this).hasClass('right') ){
 		$(indicator).addClass('right');
+    //
   } else {
     $(indicator).removeClass('right');
   }

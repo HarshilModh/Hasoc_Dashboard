@@ -175,7 +175,7 @@
   color: #878787;}
        </style>
 </head>
-<body>
+<body onload=" check_token()">
     <body>
       <div class="class=container-fluid bg-white   p-1 text-center">
    
@@ -201,37 +201,44 @@
                         <div class="col-md-6">
                         </div>
                         <ul class="nav">
-                            <li class="nav-item dropdown"  style="font-size:large;">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Welcome User
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </li>
+                          <li class="nav-item dropdown"  style="font-size:large;">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Welcome User
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" onclick="logout()">Log out</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#myModal4">Forgot Password</a>
+                              </div>
+                            </li>
                           
                     </div>
                    
                 </nav>
                 <br>
+              
                 <div class="container-fluid row">
                   <div class="col-md-10">
-                 <ul class="nav">
-                  <li class="nav-item dropdown"  style="font-size:large;" >
-                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:cadetblue">
-                     Sort By
-                   </a>
-               
-     
-                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                     <a class="dropdown-item" href="#">Action</a>
-                     <a class="dropdown-item" href="#">Another action</a>
-                     <a class="dropdown-item" href="#">Something else here</a>
-                   </div>
-                 </li>
-           </ul>
+                    <ul class="nav">
+                      <li class="nav-item dropdown"  style="font-size:large;" >
+                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:cadetblue">
+                         Task Name
+                       </a>
+                   
+         
+                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="overflow-y: scroll;height: 100px;
+                       max-height: 200px;">
+                         <a class="dropdown-item" onclick=" leaderboard_Eng()">1A_English</a>
+                         <a class="dropdown-item" onclick="leaderboard_Hindi()">1A_Hindi</a>
+                         <a class="dropdown-item" onclick=" leaderboard_Marathi()">1A_Marathi</a>
+                         <a class="dropdown-item" onclick="leaderboard_1BEng()">1B_English</a>
+                         <a class="dropdown-item" onclick=" leaderboard_1BHin()">1B_Hindi</a>
+                         <a class="dropdown-item" onclick="leaderboard_2ICHCL()">2_ICHCL</a>
+    
+    
+                       </div>
+                     </li>
+               </ul>
+                
          </div>
      
                 
@@ -239,7 +246,7 @@
                 <br>
                 <br>
         <div class="container-fluid" style="margin-bottom: 20px; margin-left: 15px;">
-          <table class="table table-hover">
+          <table class="table table-hover" id="team_data">
             <thead style="color:cadetblue">
               <tr>
                 <th scope="col">Time</th>
@@ -251,109 +258,39 @@
     
             </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">DD/MM/YYYY HH/MM</th>
-                <td>1A_English_tfidf_randomforest</td>
-                <td>1A English</td>
-                <td>0.0000</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@fat</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr> <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@fat</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr> <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@fat</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr> <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@fat</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr> <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@fat</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@fat</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@fat</td>
-                <td>@twitter</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3">Deatils</button></td>
-    
-              </tr>
+            <tbody style="min-height:50%;">
+              
             </tbody>
           </table>
           </div>
-          <div style="height: 15%; width: 100vw; margin-right: 0% ;">
+          
             <footer class="footer fixed-bottom bg-dark" style="height: 17%;width: 100%;position: relative;">
               <div class="container">
                   <div class="footer-cta pt-5 pb-5">
-                      <div class="row">
-                          <div class="col-xl-4 col-md-4 mb-30">
-                              <div class="single-cta">
+                      <div class="row" style="margin-left: 20px;">
+                          <div class="col-xl-4 col-md-2 mb-30">
+                              <div class="single-cta ">
                                   <i class="fas fa-map-marker-alt"></i>
-                                  <div class="cta-text">
-                                      <h4>Find us</h4>
-                                      <span>1010 Avenue, sw 54321, chandigarh</span><br>
-                                      <span>1010 Avenue, sw 54321, chandigarh</span>
-          
+                                  <div class="cta-text text-center">
+                                      <h4>Contact US</h4>
+                                      <span>Subscribe to our </span><br>
+                                      <span><a href="https://groups.google.com/g/hasoc2019" style="text-decoration: none; color:#00FFFF;">mailing list </a></span>
+                                        
                                   </div>
                               </div>
                           </div>
-                          <div class="col-xl-4 col-md-4 mb-30">
-                              <div class="single-cta">
-                                  <i class="fas fa-phone"></i>
-                                  <div class="cta-text">
-                                      <h4>Call us</h4>
-                                      <span>98765432100</span><br>
-                                      <span>98765432100</span>
-          
-                                  </div>
-                              </div>
+                          
+                          <div class="col-xl-4 col-md-4 mb-30 "   >
+                            <h2 style="color: #fff;" class="">&copy;Hasoc
+        
+                            </h2>
                           </div>
-                          <div class="col-xl-4 col-md-4 mb-30">
+                          <div class="col-xl-4 col-md-4 mb-30 text-center">
                               <div class="single-cta">
                                   <i class="far fa-envelope-open"></i>
                                   <div class="cta-text">
                                       <h4>Mail us</h4>
+                                      <span>hasoc2019@googlegroups.com</span><br>
                                       <span>shreysatapara@gmail.com</span><br>
                                       <span>hirenmadhu16@gmail.com</span>
                                   </div>
@@ -364,6 +301,43 @@
                   
               </div>
           </footer>
+          <div id="myModal4" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  Details
+                </div>
+                <div class="modal-body">
+                  <form onsubmit="event.preventDefault();changepassword()">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email address</label>
+                      <input type="text" class="form-control" id="Name" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="Password">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">New Password</label>
+                      <input type="password" class="form-control" id="NewPassword">
+                    </div>
+                      
+                    <button type="submit"  class="btn btn-info" >Submit</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                
+        
+                </div>
+              </div>
+          
+            </div>
+          </div>
           <!--        
           <footer class="footer fixed-bottom bg-dark text-center p-3" style="color:gainsboro">
             <div> 
@@ -383,9 +357,11 @@
             </div>
             
            
-         
+
          
          </footer> -->
-         
+<script src="js/jquery-3.3.1.min.js"></script>
+
+         <script src="Leader_Board.js"></script>
 </body>
 </html>

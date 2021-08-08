@@ -1,3 +1,7 @@
+function logout(){
+    document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    window.location='Login.html'
+}
 function check_token(){
     var authtoken=document.cookie
     console.log(authtoken);
@@ -6,89 +10,24 @@ function check_token(){
         window.location = 'Login.html';
     }
     else{
-        team_data()
+        leaderboard()
     }
 }
-function set_task(td){
-    selectedRow = td.parentElement.parentElement;
-    var task=selectedRow.cells[2].innerHTML
-    console.log(task);
-     localStorage.setItem("task_name",task)
-            
-
-}
-function setlang(str){
-    console.log(str);
-    localStorage.setItem("Lang",str)
-    //submit()
-}
-$('Fileform').submit(function(e){
-  var lang=localStorage.getItem("Lang")
-  console.log(lang);
-  var Team=localStorage.getItem("User")
-    console.log(Team);
-    var file=document.getElementById("File").value
-    var ex=file.split('.').pop()
-    console.log(ex);
-    //console.log(file.split('.').pop());\
-    if(ex!="csv"){
-                 
-        Swal.fire({
-            icon: 'error',
-            title: 'Please upload only csv file',
-            
-            })
-    }
-    console.log(file);
-   var name= document.getElementById("Submission_name").value
-    console.log(name);
-  
-    var des=document.getElementById('description').value
-    console.log(des);
-    data1=new FormData();
-    data1.append('team_name',Team)
-    data1.append('task_name',lang)
-    data1.append('submission_name',name)
-    data1.append('description',des)
-    data1.append('file',$("#File")[0].files[0])
-
-    $.ajax({
-        type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/dashboard/submission",
-        data:data1,  
-       headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10"
-       },
-        // data:JSON.stringify( {
-        //     "team_name":Team,
-        //     "task_name":lang,
-        //     "submission_name":name,
-        //     "description":des,
-        //     "file":file
-        // }),
-        success: function (result){
-    
-            console.log(result);
-
-           
-        }
-        });
-})
-function team_data(){
-    //console.log(User);
+function leaderboard(){
     var team=localStorage.getItem("User")
     console.log(team);
 
     document.getElementById("navbarDropdownMenuLink").innerHTML=`Welcome ${team}`
-        $.ajax({
+    var task_name=localStorage.getItem("task_name")
+    $.ajax({
         type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/timestamp_desc",
+        url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
             "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
            'content-type':'application/json'
        },
         data:JSON.stringify( {
-            "team_name": team
+            "task_name": task_name  
         }),
         success: function (result){
             // var request=new XMLHttpRequest();
@@ -110,8 +49,6 @@ function team_data(){
             
                 cell3 = newRow.insertCell(2)
                 cell3.innerHTML =result[i].task_name
-                // var taskname=result[i].task_name
-                // localStorage.setItem("task_name",taskname)
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
@@ -120,142 +57,8 @@ function team_data(){
                 var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
                 cell5.innerHTML =data
                 
-                cell6 = newRow.insertCell(5)
-                cell6.innerHTML =' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
+              
             }
-        //
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
-        
-            //alert( document.cookie)
-           
-        },error: function(jqXHR, textStatus, errorThrown) {
-            if(jqXHR.status==404){
-                console.log(jqXHR.status);
-                 
-              //  document.getElementById("Sort").innerHTML=""
-                //document.getElementById("Guide").innerHTML=""
-                    document.getElementById("team_data").innerHTML="Button"
-
-            }
-        }
-        });
-}
-
-function logout(){
-    document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
-    window.location='Login.html'
-}
-function changepassword(){
-    var team=localStorage.getItem("User")
-    var password=document.getElementById("Password").value
-    var new_password=document.getElementById("NewPassword").value
-    console.log(password);
-    console.log(new_password);
-    $.ajax({
-        type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/user/change_password",
-       headers:{
-        "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
-           'content-type':'application/json'
-       },
-        data:JSON.stringify( {
-            "team_name": team,
-            "password": password,
-            "new_password":new_password
-        }),
-        success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            console.log(result)
-            
-                 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Password Changed'
-                  })
-                
-        //     var token=result.token
-        //     // console.log(token);
-        //     document.cookie=`token=${token}`;
-        //     console.log(document.cookie);
-        //    // alert( document.cookie)
-        //     window.location = 'index.html';
-        },error: function(jqXHR, textStatus, errorThrown) {
-            if(jqXHR.status==402){
-                
-                 
-        Swal.fire({
-        icon: 'error',
-        title: 'Invalid password',
-        
-        })
-        
-
-            }
-        }
-        });
-    }
-function team_data_f1_asc(){
-    // var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-    // for(var i=0;i<table.length;i++){
-    //     console.log(i);
-    // }
-    var authtoken=document.cookie
-    
-    var team=localStorage.getItem("User")
-    console.log(team);
-   var raw=document.getElementsByTagName("tbody")[0]
-   raw.parentNode.removeChild(raw)
-   var x=document.createElement("tbody")
-    document.getElementById("team_data").appendChild(x)
-    $.ajax({
-        type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/f1_asc",
-       headers:{
-            "x-access-token":authtoken,
-           'content-type':'application/json'
-       },
-        data:JSON.stringify( {
-            "team_name": team
-        }),
-        success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
-          
-            console.log(result);
-            for(var i=0;i<result.length;i++){
-                var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-                var newRow = table.insertRow(table.length)
-                cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
-            
-                cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
-            
-                cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
-            
-                cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
-            
-                cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
-                
-                cell6 = newRow.insertCell(5)
-                cell6.innerHTML =' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
-
-            }
-
         
             // var res=result[1].description;
             // console.log(result[1].description);
@@ -266,35 +69,28 @@ function team_data_f1_asc(){
         
             //alert( document.cookie)
            
-        },error: function(jqXHR, textStatus, errorThrown) {
-            if(jqXHR.status==401){
-               window.location="Login.html"
-            }
         }
         });
 }
-function team_data_f1_desc(){
-    // var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-    // for(var i=0;i<table.length;i++){
-    //     console.log(i);
-    // }
-    var team=localStorage.getItem("User")
-    console.log(team);
+function set_task(td){
+    selectedRow = td.parentElement.parentElement;
+    var task=selectedRow.cells[0].innerHTML
+    console.log(task);
+}
+function leaderboard_Eng(){
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
      document.getElementById("team_data").appendChild(x)
     $.ajax({
-
-
         type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/f1_desc",
+        url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
             "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
            'content-type':'application/json'
        },
         data:JSON.stringify( {
-            "team_name": team
+            "task_name": "1A_English" 
         }),
         success: function (result){
             // var request=new XMLHttpRequest();
@@ -303,9 +99,9 @@ function team_data_f1_desc(){
             //var token=result.token
             // console.log(token);
             //document.cookie=token;
-          
             console.log(result);
             for(var i=0;i<result.length;i++){
+
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
@@ -324,9 +120,7 @@ function team_data_f1_desc(){
                 var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
                 cell5.innerHTML =data
                 
-                cell6 = newRow.insertCell(5)
-                cell6.innerHTML =' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
-
+              
             }
         
             // var res=result[1].description;
@@ -341,26 +135,20 @@ function team_data_f1_desc(){
         }
         });
 }
-function team_data_timestamp_asc(){
-    // var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-    // for(var i=0;i<table.length;i++){
-    //     console.log(i);
-    // }
-    var team=localStorage.getItem("User")
-    console.log(team);
-   var raw=document.getElementsByTagName("tbody")[0]
-   raw.parentNode.removeChild(raw)
-   var x=document.createElement("tbody")
-    document.getElementById("team_data").appendChild(x)
+function leaderboard_Hindi(){
+    var raw=document.getElementsByTagName("tbody")[0]
+    raw.parentNode.removeChild(raw)
+    var x=document.createElement("tbody")
+     document.getElementById("team_data").appendChild(x)
     $.ajax({
         type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/timestamp_asc",
+        url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
             "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
            'content-type':'application/json'
        },
         data:JSON.stringify( {
-            "team_name": team
+            "task_name": "1A_Hindi"  
         }),
         success: function (result){
             // var request=new XMLHttpRequest();
@@ -369,9 +157,9 @@ function team_data_timestamp_asc(){
             //var token=result.token
             // console.log(token);
             //document.cookie=token;
-          
             console.log(result);
             for(var i=0;i<result.length;i++){
+
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
@@ -390,9 +178,7 @@ function team_data_timestamp_asc(){
                 var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
                 cell5.innerHTML =data
                 
-                cell6 = newRow.insertCell(5)
-                cell6.innerHTML =' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
-
+              
             }
         
             // var res=result[1].description;
@@ -407,27 +193,20 @@ function team_data_timestamp_asc(){
         }
         });
 }
-
-function team_data_timestamp_desc(){
-    // var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-    // for(var i=0;i<table.length;i++){
-    //     console.log(i);
-    // }
-    var team=localStorage.getItem("User")
-    console.log(team);
-   var raw=document.getElementsByTagName("tbody")[0]
-   raw.parentNode.removeChild(raw)
-   var x=document.createElement("tbody")
-    document.getElementById("team_data").appendChild(x)
+function leaderboard_Marathi(){
+    var raw=document.getElementsByTagName("tbody")[0]
+    raw.parentNode.removeChild(raw)
+    var x=document.createElement("tbody")
+     document.getElementById("team_data").appendChild(x)
     $.ajax({
         type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/timestamp_desc",
+        url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
             "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
            'content-type':'application/json'
        },
         data:JSON.stringify( {
-            "team_name": team
+            "task_name":'1A_Marathi'
         }),
         success: function (result){
             // var request=new XMLHttpRequest();
@@ -436,9 +215,9 @@ function team_data_timestamp_desc(){
             //var token=result.token
             // console.log(token);
             //document.cookie=token;
-          
             console.log(result);
             for(var i=0;i<result.length;i++){
+
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
@@ -457,9 +236,181 @@ function team_data_timestamp_desc(){
                 var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
                 cell5.innerHTML =data
                 
-                cell6 = newRow.insertCell(5)
-                cell6.innerHTML =' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
+              
+            }
+        
+            // var res=result[1].description;
+            // console.log(result[1].description);
+            // console.log(result[1].task_name);
+            // console.log(result[1].f1_score);
+            // console.log(result[1].submission_name);
+            
+        
+            //alert( document.cookie)
+           
+        }
+        });
+}
+function leaderboard_1BEng(){
+    var raw=document.getElementsByTagName("tbody")[0]
+    raw.parentNode.removeChild(raw)
+    var x=document.createElement("tbody")
+     document.getElementById("team_data").appendChild(x)
+    $.ajax({
+        type: 'POST',
+        url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
+       headers:{
+            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+           'content-type':'application/json'
+       },
+        data:JSON.stringify( {
+            "task_name": "1B_English"
+        }),
+        success: function (result){
+            // var request=new XMLHttpRequest();
+            // token=request.getResponseHeader("x-mstr-authtoken")
+            //console.log(result.token)
+            //var token=result.token
+            // console.log(token);
+            //document.cookie=token;
+            console.log(result);
+            for(var i=0;i<result.length;i++){
 
+                var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
+                var newRow = table.insertRow(table.length)
+                cell1 = newRow.insertCell(0)
+                cell1.innerHTML = result[i].timestamp
+            
+                cell2 = newRow.insertCell(1)
+                cell2.innerHTML = result[i].submission_name
+            
+                cell3 = newRow.insertCell(2)
+                cell3.innerHTML =result[i].task_name
+            
+                cell4 = newRow.insertCell(3)
+                cell4.innerHTML =result[i].f1_score
+            
+                cell5 = newRow.insertCell(4)
+                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
+                cell5.innerHTML =data
+                
+              
+            }
+        
+            // var res=result[1].description;
+            // console.log(result[1].description);
+            // console.log(result[1].task_name);
+            // console.log(result[1].f1_score);
+            // console.log(result[1].submission_name);
+            
+        
+            //alert( document.cookie)
+           
+        }
+        });
+}
+function leaderboard_1BHin(){
+    var raw=document.getElementsByTagName("tbody")[0]
+    raw.parentNode.removeChild(raw)
+    var x=document.createElement("tbody")
+     document.getElementById("team_data").appendChild(x)
+    $.ajax({
+        type: 'POST',
+        url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
+       headers:{
+            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+           'content-type':'application/json'
+       },
+        data:JSON.stringify( {
+            "task_name": "1B_Hindi"  
+        }),
+        success: function (result){
+            // var request=new XMLHttpRequest();
+            // token=request.getResponseHeader("x-mstr-authtoken")
+            //console.log(result.token)
+            //var token=result.token
+            // console.log(token);
+            //document.cookie=token;
+            console.log(result);
+            for(var i=0;i<result.length;i++){
+
+                var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
+                var newRow = table.insertRow(table.length)
+                cell1 = newRow.insertCell(0)
+                cell1.innerHTML = result[i].timestamp
+            
+                cell2 = newRow.insertCell(1)
+                cell2.innerHTML = result[i].submission_name
+            
+                cell3 = newRow.insertCell(2)
+                cell3.innerHTML =result[i].task_name
+            
+                cell4 = newRow.insertCell(3)
+                cell4.innerHTML =result[i].f1_score
+            
+                cell5 = newRow.insertCell(4)
+                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
+                cell5.innerHTML =data
+                
+              
+            }
+        
+            // var res=result[1].description;
+            // console.log(result[1].description);
+            // console.log(result[1].task_name);
+            // console.log(result[1].f1_score);
+            // console.log(result[1].submission_name);
+            
+        
+            //alert( document.cookie)
+           
+        }
+        });
+}
+function leaderboard_2ICHCL(){
+    var raw=document.getElementsByTagName("tbody")[0]
+    raw.parentNode.removeChild(raw)
+    var x=document.createElement("tbody")
+     document.getElementById("team_data").appendChild(x)
+    $.ajax({
+        type: 'POST',
+        url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
+       headers:{
+            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+           'content-type':'application/json'
+       },
+        data:JSON.stringify( {
+            "task_name":"2_ICHCL"  
+        }),
+        success: function (result){
+            // var request=new XMLHttpRequest();
+            // token=request.getResponseHeader("x-mstr-authtoken")
+            //console.log(result.token)
+            //var token=result.token
+            // console.log(token);
+            //document.cookie=token;
+            console.log(result);
+            for(var i=0;i<result.length;i++){
+
+                var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
+                var newRow = table.insertRow(table.length)
+                cell1 = newRow.insertCell(0)
+                cell1.innerHTML = result[i].timestamp
+            
+                cell2 = newRow.insertCell(1)
+                cell2.innerHTML = result[i].submission_name
+            
+                cell3 = newRow.insertCell(2)
+                cell3.innerHTML =result[i].task_name
+            
+                cell4 = newRow.insertCell(3)
+                cell4.innerHTML =result[i].f1_score
+            
+                cell5 = newRow.insertCell(4)
+                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
+                cell5.innerHTML =data
+                
+              
             }
         
             // var res=result[1].description;
