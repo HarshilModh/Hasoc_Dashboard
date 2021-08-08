@@ -1,545 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />   
-<title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
     <style>
-         .nav-link{
+        .nav-link {
             color: gainsboro;
         }
-         .nav-item a:hover{
+        
+        .nav-item a:hover {
             color: cadetblue;
         }
+        
         ul {
-    margin: 0px;
-    padding: 0px;
+            margin: 0px;
+            padding: 0px;
         }
-
-.footer-cta {
-  border-bottom: 1px solid #373636;
-}
-.single-cta i {
-  color: cyan;
-  font-size: 30px;
-  float: left;
-  margin-top: 8px;
-}
-.cta-text {
-  padding-left: 15px;
-  display: inline-block;
-}
-.cta-text h4 {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-.cta-text span {
-  color: #757575;
-  font-size: 15px;
-}
-.footer-content {
-  position: relative;
-  z-index: 2;
-}
-.footer-pattern img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 330px;
-  background-size: cover;
-  background-position: 100% 100%;
-}
-.footer-logo {
-  margin-bottom: 30px;
-}
-.footer-logo img {
-    max-width: 200px;
-}
-.footer-text p {
-  margin-bottom: 14px;
-  font-size: 14px;
-      color: #7e7e7e;
-  line-height: 28px;
-}
-.footer-social-icon span {
-  color: #fff;
-  display: block;
-  font-size: 20px;
-  font-weight: 700;
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: 20px;
-}
-.footer-social-icon a {
-  color: #fff;
-  font-size: 16px;
-  margin-right: 15px;
-}
-.footer-social-icon i {
-  height: 40px;
-  width: 40px;
-  text-align: center;
-  line-height: 38px;
-  border-radius: 50%;
-}
-.facebook-bg{
-  background: #3B5998;
-}
-.twitter-bg{
-  background: #55ACEE;
-}
-.google-bg{
-  background: #DD4B39;
-}
-.footer-widget-heading h3 {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 40px;
-  position: relative;
-}
-.footer-widget-heading h3::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -15px;
-  height: 2px;
-  width: 50px;
-  background: #ff5e14;
-}
-.footer-widget ul li {
-  display: inline-block;
-  float: left;
-  width: 50%;
-  margin-bottom: 12px;
-}
-.footer-widget ul li a:hover{
-  color: #ff5e14;
-}
-.footer-widget ul li a {
-  color: #878787;
-  text-transform: capitalize;
-}
-.subscribe-form {
-  position: relative;
-  overflow: hidden;
-}
-.subscribe-form input {
-  width: 100%;
-  padding: 14px 28px;
-  background: #2E2E2E;
-  border: 1px solid #2E2E2E;
-  color: #fff;
-}
-.subscribe-form button {
-    position: absolute;
-    right: 0;
-    background: #ff5e14;
-    padding: 13px 20px;
-    border: 1px solid #ff5e14;
-    top: 0;
-}
-.subscribe-form button i {
-  color: #fff;
-  font-size: 22px;
-  transform: rotate(-6deg);
-}
-.copyright-area{
-  background: #202020;
-  padding: 25px 0;
-}
-.copyright-text p {
-  margin: 0;
-  font-size: 14px;
-  color: #878787;
-}
-.copyright-text p a{
-  color: #ff5e14;
-}
-.footer-menu li {
-  display: inline-block;
-  margin-left: 20px;
-}
-.footer-menu li:hover a{
-  color: #ff5e14;
-}
-.footer-menu li a {
-  font-size: 14px;
-  color: #878787;
-}
-
-.switch {
-  background-color: #17A2B8;
-  width: 80%;
-  display: inline-block;
-  border-radius: 8px;
-  height: 40px;
-  padding: 5px;
-  position: relative;
-  zoom: 1;
-}
-.switch:before, .switch:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-.switch:after {
-  clear: both;
-}
-.switch label {
-  float: left;
-  width: 50%;
-  position: relative;
-  z-index: 2;
-  line-height: 40px;
-  cursor: pointer;
-  color: #fff;
-}
-.switch input[type="radio"] {
-  display: none;
-}
-.switch input[type="radio"]:checked + label {
-  color: #141241;
-  font-weight: bold;
-}
-.switch span {
-  position: relative;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  display: block;
-  border-radius: 5px 0 0 5px;
-  background-color: #ffffff;
-  transition: all 200ms ease;
-}
-.switch span.right {
-  left: 50%;
-  border-radius: 0 5px 5px 0;
-  transition: all 200ms ease;
-}
-
-
-        </style>
+        
+        .footer-cta {
+            border-bottom: 1px solid #373636;
+        }
+        
+        .single-cta i {
+            color: cyan;
+            font-size: 30px;
+            float: left;
+            margin-top: 8px;
+        }
+        
+        .cta-text {
+            padding-left: 15px;
+            display: inline-block;
+        }
+        
+        .cta-text h4 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .cta-text span {
+            color: #757575;
+            font-size: 15px;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-pattern img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 330px;
+            background-size: cover;
+            background-position: 100% 100%;
+        }
+        
+        .footer-logo {
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo img {
+            max-width: 200px;
+        }
+        
+        .footer-text p {
+            margin-bottom: 14px;
+            font-size: 14px;
+            color: #7e7e7e;
+            line-height: 28px;
+        }
+        
+        .footer-social-icon span {
+            color: #fff;
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 20px;
+        }
+        
+        .footer-social-icon a {
+            color: #fff;
+            font-size: 16px;
+            margin-right: 15px;
+        }
+        
+        .footer-social-icon i {
+            height: 40px;
+            width: 40px;
+            text-align: center;
+            line-height: 38px;
+            border-radius: 50%;
+        }
+        
+        .facebook-bg {
+            background: #3B5998;
+        }
+        
+        .twitter-bg {
+            background: #55ACEE;
+        }
+        
+        .google-bg {
+            background: #DD4B39;
+        }
+        
+        .footer-widget-heading h3 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .footer-widget-heading h3::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            height: 2px;
+            width: 50px;
+            background: #ff5e14;
+        }
+        
+        .footer-widget ul li {
+            display: inline-block;
+            float: left;
+            width: 50%;
+            margin-bottom: 12px;
+        }
+        
+        .footer-widget ul li a:hover {
+            color: #ff5e14;
+        }
+        
+        .footer-widget ul li a {
+            color: #878787;
+            text-transform: capitalize;
+        }
+        
+        .subscribe-form {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .subscribe-form input {
+            width: 100%;
+            padding: 14px 28px;
+            background: #2E2E2E;
+            border: 1px solid #2E2E2E;
+            color: #fff;
+        }
+        
+        .subscribe-form button {
+            position: absolute;
+            right: 0;
+            background: #ff5e14;
+            padding: 13px 20px;
+            border: 1px solid #ff5e14;
+            top: 0;
+        }
+        
+        .subscribe-form button i {
+            color: #fff;
+            font-size: 22px;
+            transform: rotate(-6deg);
+        }
+        
+        .copyright-area {
+            background: #202020;
+            padding: 25px 0;
+        }
+        
+        .copyright-text p {
+            margin: 0;
+            font-size: 14px;
+            color: #878787;
+        }
+        
+        .copyright-text p a {
+            color: #ff5e14;
+        }
+        
+        .footer-menu li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+        
+        .footer-menu li:hover a {
+            color: #ff5e14;
+        }
+        
+        .footer-menu li a {
+            font-size: 14px;
+            color: #878787;
+        }
+        
+        .switch {
+            background-color: #17A2B8;
+            width: 80%;
+            display: inline-block;
+            border-radius: 8px;
+            height: 40px;
+            padding: 5px;
+            position: relative;
+            zoom: 1;
+        }
+        
+        .switch:before,
+        .switch:after {
+            content: " ";
+            /* 1 */
+            display: table;
+            /* 2 */
+        }
+        
+        .switch:after {
+            clear: both;
+        }
+        
+        .switch label {
+            float: left;
+            width: 50%;
+            position: relative;
+            z-index: 2;
+            line-height: 40px;
+            cursor: pointer;
+            color: #fff;
+        }
+        
+        .switch input[type="radio"] {
+            display: none;
+        }
+        
+        .switch input[type="radio"]:checked+label {
+            color: #141241;
+            font-weight: bold;
+        }
+        
+        .switch span {
+            position: relative;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            display: block;
+            border-radius: 5px 0 0 5px;
+            background-color: #ffffff;
+            transition: all 200ms ease;
+        }
+        
+        .switch span.right {
+            left: 50%;
+            border-radius: 0 5px 5px 0;
+            transition: all 200ms ease;
+        }
+    </style>
 </head>
+
 <body onload="check_token()">
-  
+
     <div class="class=container-fluid bg-white p-1 text-center">
-   
-    <img src="HASOC_Design_01.png" width="600" height="200" alt="">  
+
+        <img src="HASOC_Design_01.png" width="600" height="200" alt="">
     </div>
 
-        <nav class="navbar navbar-light bg-dark sticky-top" role="navigation">
-         
-              <ul class="nav">
-                
-                <li class="nav-item" style="font-size:large;"  >
-                    <a class="nav-link" href="Index.html">Home</a>
-                  </li>
-                  
-                  <li class="nav-item" style="font-size:large;">
-                    <a class="nav-link" href="Leader_Board.html">Leaderboard</a>
-                  </li>
-                  
-                
+    <nav class="navbar navbar-light bg-dark sticky-top" role="navigation">
 
-                </ul>   
-                <div class="row">
-                    <div class="col-md-6">
-                    </div>
-                    <ul class="nav">
-                        <li class="nav-item dropdown"  style="font-size:large;">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <ul class="nav">
+
+            <li class="nav-item" style="font-size:large;">
+                <a class="nav-link" href="Index.html">Home</a>
+            </li>
+
+            <li class="nav-item" style="font-size:large;">
+                <a class="nav-link" href="Leader_Board.html">Leaderboard</a>
+            </li>
+
+
+
+        </ul>
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+            <ul class="nav">
+                <li class="nav-item dropdown" style="font-size:large;">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Welcome User
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                              <a class="dropdown-item" onclick="logout()">Log out</a>
-                              <a class="dropdown-item" data-toggle="modal" data-target="#myModal4">Change Password</a>
-                            </div>
-                          </li>
-                        
-                  
-                </div>
-               
-            </nav>
-            <br> 
-            
-           <div class="container-fluid row" id="Sort">
-             <div class="col-md-8">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" onclick="logout()">Log out</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal4">Change Password</a>
+                    </div>
+                </li>
+
+
+        </div>
+
+    </nav>
+    <br>
+
+    <div class="container-fluid row" id="Sort">
+        <div class="col-md-8">
             <ul class="nav">
-             <li class="nav-item dropdown"  style="font-size:large;" >
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:cadetblue" >
+                <li class="nav-item dropdown" style="font-size:large;">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:cadetblue">
                 Sort By
               </a>
-          
 
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-                <a class="dropdown-item"  onclick="team_data_f1_asc()">score ascending</a>
-                <a class="dropdown-item" onclick="team_data_f1_desc()">score descending</a>
-                <a class="dropdown-item" onclick="team_data_timestamp_asc()">Timestamp ascending</a>
-                <a class="dropdown-item" onclick="team_data_timestamp_desc()">Timestamp descending</a>
 
-              </div>
-            </li>
-      </ul>
-    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" onclick="team_data_f1_asc()">score ascending</a>
+                        <a class="dropdown-item" onclick="team_data_f1_desc()">score descending</a>
+                        <a class="dropdown-item" onclick="team_data_timestamp_asc()">Timestamp ascending</a>
+                        <a class="dropdown-item" onclick="team_data_timestamp_desc()">Timestamp descending</a>
 
-            <div class="col-md-2 " id="Guide">
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-2 " id="Guide">
             <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal2">Submision Guidelines</button>
 
-            </div>
-            <div class="col-md-2">
-            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal">Submit Another Run</button>
+        </div>
+        <div class="col-md-2">
+            <button onclick="submission()">Submit Another Run</button>
 
-            </div>
-    
-            <br> 
-            <br> 
-            <br> 
-        
-   
-  <div class="container-fluid" style="margin-bottom:30px;margin-left: 30px;">
-    <table class="table table-hover" id="team_data">
-        <thead style="color:cadetblue">
-          <tr>
-            <th scope="col">Time</th>
-            <th scope="col">Name Of Sub</th>
-            <th scope="col">Task</th>
-            <th scope="col">Score</th>
-            <th scope="col">Details</th>
-            <th scope="col">Redirect to rank</th>
+        </div>
 
-        </tr>
-        </thead>
-        <tbody>
-          <tr>
-          
-            <!-- <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>
+        <br>
+        <br>
+        <br>
+
+
+        <div class="container-fluid" style="margin-bottom:30px;margin-left: 30px;">
+            <table class="table table-hover" id="team_data">
+                <thead style="color:cadetblue">
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Name Of Sub</th>
+                        <th scope="col">Task</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Redirect to rank</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <!-- <td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>
             <td><button class="btn btn-info"><a href="Leader_Board.html" style="text-decoration: none; color: white;">Rank</a> </button></td> -->
-          </tr>
+                    </tr>
 
-                 </tbody>
-      </table>
-      <br>
-    
-  </div>
-  <div id="myModal2" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          Guidelines
-        </div>
-        <div class="modal-body">
-            Guidelines
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-info"  data-dismiss="modal" data-toggle="modal" data-target="#myModal">Got it</button>
-          <button type="submit" class="btn btn-info"  data-dismiss="modal" >Read more</button>
-
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
-
-        </div>
-      </div>
-  
-    </div>
-  </div>
-  <div id="myModal3" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          Details
-        </div>
-        <div class="modal-body">
-            Details
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
-
-        </div>
-      </div>
-  
-    </div>
-  </div>
-  <div id="myModal4" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          Details
-        </div>
-        <div class="modal-body">
-          <form onsubmit="event.preventDefault();changepassword()">
-           
-            <div class="mb-3">  
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="Password">
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">New Password</label>
-              <input type="password" class="form-control" id="NewPassword">
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-              <input type="password" class="form-control" id="NewPassword">
-            </div>
-              
-            <button type="submit"  class="btn btn-info" >Submit</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
-
-        </div>
-      </div>
-  
-    </div>
-  </div>
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
-        </div>
-        <div class="modal-body">
-            <form onsubmit="event.preventDefault();submit()">
-              <div class="row">
-                <div class="col-md-2">
-
-
-                </div>
-              <div style="width: 80%;">
-        
-                <!-- <label class="btn btn-info">
-                  <input type="radio" name="options" id="option2" autocomplete="off"> subtask1
-                </label>
-                <label class="btn btn-info">
-                  <input type="radio" name="options" id="option3" autocomplete="off"> subtask2
-                </label> -->
-             
-<div class="switch ">
-  <input  name="radio" type="radio" value="optionone" id="optionone" checked>
-  <label for="optionone" class="text-center" style="margin: -3px;">Subtask1</label>
-  
-  <input name="radio" type="radio" value="optiontwo" id="optiontwo">
-  <label for="optiontwo" class="right text-center" style="margin: -3px;">Subtask2</label>
-  
-  <span aria-hidden="true"></span>
-</div>
-              </div>
-            </div>
+                </tbody>
+            </table>
             <br>
-            
-            <div class="dropdown text-center">
-              <button class="btn btn-info dropdown-toggle" type="button" id="Language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="Select Language/Subtask">
-                Select Language/Subtask
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="setlang('1A_English')">1A_English</a>
-                <a class="dropdown-item" onclick="setlang('1A_Hindi')">1A_Hindi</a>
-                <a class="dropdown-item" onclick="setlang('1A_Marathi')">1A_Marathi</a>
-                <a class="dropdown-item" onclick="setlang('1B_English')">1B_English</a>
-                <a class="dropdown-item" onclick="setlang('1B_Hindi')">1B_Hindi</a>
-                <a class="dropdown-item" onclick="setlang('2_ICHCL')">2_ICHCL</a>
-              </div>
-              
-            </div>
-            
-              <br>
-              <div class="form-group">
-                
-                <input type="text" class="form-control" id="Submission_name" rows="3" placeholder="Please enter Submission name" ></input><br>
-                <span id="nameerror"> </span>
 
-                <textarea class="form-control" id="description" rows="3" placeholder="Please enter description"></textarea>
+        </div>
+        <div id="myModal2" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-              </div>
-            </form>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button> Guidelines
+                    </div>
+                    <div class="modal-body">
+                        Guidelines
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info" data-dismiss="modal" data-toggle="modal" data-target="#myModal">Got it</button>
+                        <button type="submit" class="btn btn-info" data-dismiss="modal">Read more</button>
 
-              <br>
-              <form class="text-center">
-                <div class="row">    <div class="col-md-3"></div>
-                             <div class="form-group text-center">
-                  
-                  <input type="file" class="btn form-control-file text-center" id="File" name="File">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                    </div>
                 </div>
-              </form>
+
             </div>
-
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="submit()">Submit</button>
+        <div id="myModal3" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button> Details
+                    </div>
+                    <div class="modal-body">
+                        Details
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
-  
-    </div>
-  </div>
- 
+        <div id="myModal4" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button> Details
+                    </div>
+                    <div class="modal-body">
+                        <form onsubmit="event.preventDefault();changepassword()">
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="Password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="NewPassword">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="NewPassword">
+                            </div>
+
+                            <button type="submit" class="btn btn-info">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
 
-    <footer class="footer fixed-bottom bg-dark" style="height: 17%;width: 100%;position: relative;">
-      <div class="container">
-          <div class="footer-cta pt-5 pb-5">
-              <div class="row" style="margin-left: 20px;">
-                  <div class="col-xl-4 col-md-2 mb-30">
-                      <div class="single-cta ">
-                          <i class="fas fa-map-marker-alt"></i>
-                          <div class="cta-text text-center">
-                              <h4>Contact US</h4>
-                              <span>Subscribe to our </span><br>
-                              <span><a href="https://groups.google.com/g/hasoc2019" style="text-decoration: none; color:#00FFFF;">mailing list </a></span>
-                                
-                          </div>
-                      </div>
-                  </div>
-                  
-                  <div class="col-xl-4 col-md-4 mb-30 "   >
-                    <h2 style="color: #fff;" class="">&copy;Hasoc
+                    </div>
+                </div>
 
-                    </h2>
-                  </div>
-                  <div class="col-xl-4 col-md-4 mb-30 text-center">
-                      <div class="single-cta">
-                          <i class="far fa-envelope-open"></i>
-                          <div class="cta-text">
-                              <h4>Mail us</h4>
-                              <span>hasoc2019@googlegroups.com</span><br>
-                              <span>shreysatapara@gmail.com</span><br>
-                              <span>hirenmadhu16@gmail.com</span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          
-      </div>
-  </footer>
+            </div>
+        </div>
+        <!--<div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="submissionForm" action="" enctype="multipart/form-data" method="POST">
+                            <input type="file" id="File" name="File" />
+                            <input type="submit" name="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>-->
 
-  <!-- <footer class="footer fixed-bottom bg-dark text-center p-3" style="color:gainsboro">
+
+
+        <footer class="footer fixed-bottom bg-dark" style="height: 17%;width: 100%;position: relative;">
+            <div class="container">
+                <div class="footer-cta pt-5 pb-5">
+                    <div class="row" style="margin-left: 20px;">
+                        <div class="col-xl-4 col-md-2 mb-30">
+                            <div class="single-cta ">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="cta-text text-center">
+                                    <h4>Contact US</h4>
+                                    <span>Subscribe to our </span><br>
+                                    <span><a href="https://groups.google.com/g/hasoc2019" style="text-decoration: none; color:#00FFFF;">mailing list </a></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-4 mb-30 ">
+                            <h2 style="color: #fff;" class="">&copy;Hasoc
+
+                            </h2>
+                        </div>
+                        <div class="col-xl-4 col-md-4 mb-30 text-center">
+                            <div class="single-cta">
+                                <i class="far fa-envelope-open"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <span>hasoc2019@googlegroups.com</span><br>
+                                    <span>shreysatapara@gmail.com</span><br>
+                                    <span>hirenmadhu16@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+        <!-- <footer class="footer fixed-bottom bg-dark text-center p-3" style="color:gainsboro">
    <div> 
     Contact Us
    </div>
@@ -569,18 +538,19 @@
 </body>
 <script src="Hasoc.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 <script>
-  $('.switch label').on('click', function(){
-  var indicator = $(this).parent('.switch').find('span');
-  if ( $(this).hasClass('right') ){
-		$(indicator).addClass('right');
-    //
-  } else {
-    $(indicator).removeClass('right');
-  }
-}); 
+    $('.switch label').on('click', function() {
+        var indicator = $(this).parent('.switch').find('span');
+        if ($(this).hasClass('right')) {
+            $(indicator).addClass('right');
+            //
+        } else {
+            $(indicator).removeClass('right');
+        }
+    });
 </script>
+
 </html>
