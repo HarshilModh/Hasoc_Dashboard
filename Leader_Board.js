@@ -3,6 +3,16 @@ function logout(){
     localStorage.clear()
     window.location='Login.html'
 }
+function password2(){
+    var password=document.getElementById("Password").value
+    var new_password = document.getElementById("NewPassword").value
+    if(password==new_password){
+        document.getElementById("passworderr").innerHTML="New Password cant be same"  
+        }
+        else{
+            document.getElementById("passworderr").innerHTML=""
+        }
+}
 function password(){
     var new_password = document.getElementById("NewPassword").value
     var confirm_passowrd=document.getElementById("ConfirmPassword").value
@@ -124,10 +134,11 @@ function leaderboard(){
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
+                cell1.innerHTML =(i+1)  
+                
             
                 cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
+                cell2.innerHTML = result[i].team_name
             
                 cell3 = newRow.insertCell(2)
                 cell3 = newRow.insertCell(2)
@@ -153,23 +164,18 @@ function leaderboard(){
                 }
             
                 cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
+                cell4.innerHTML =result[i].timestamp
+                //result[i].f1_score
             
                 cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
+                cell5.innerHTML =result[i].submission_name
+                
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML =result[i].f1_score
                 
               
             }
         
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
-        
-            //alert( document.cookie)
            
         },  error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
@@ -205,22 +211,18 @@ function leaderboard_Eng(){
             "task_name":'1A_English' 
         }),
         success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
+            
             console.log(result);
             for(var i=0;i<result.length;i++){
 
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
+                cell1.innerHTML =(i+1)  
+                
             
                 cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
+                cell2.innerHTML = result[i].team_name
             
                 cell3 = newRow.insertCell(2)
                 cell3 = newRow.insertCell(2)
@@ -246,23 +248,20 @@ function leaderboard_Eng(){
                 }
             
                 cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
+                cell4.innerHTML =result[i].timestamp
+                //result[i].f1_score
             
                 cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
+                cell5.innerHTML =result[i].submission_name
                 
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML =result[i].f1_score
+                
+              
               
             }
         
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
         
-            //alert( document.cookie)
            
         },  error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
@@ -292,22 +291,18 @@ function leaderboard_Hindi(){
             "task_name": "1A_Hindi"  
         }),
         success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
+          
             console.log(result);
             for(var i=0;i<result.length;i++){
 
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
+                cell1.innerHTML =(i+1)  
+                
             
                 cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
+                cell2.innerHTML = result[i].team_name
             
                 cell3 = newRow.insertCell(2)
                 cell3 = newRow.insertCell(2)
@@ -333,23 +328,20 @@ function leaderboard_Hindi(){
                 }
             
                 cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
+                cell4.innerHTML =result[i].timestamp
+                //result[i].f1_score
             
                 cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
+                cell5.innerHTML =result[i].submission_name
                 
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML =result[i].f1_score
+                
+              
               
             }
         
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
-        
-            //alert( document.cookie)
+         
            
         },  error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
@@ -378,22 +370,18 @@ function leaderboard_Marathi(){
             "task_name":'1A_Marathi'
         }),
         success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
+          
             console.log(result);
             for(var i=0;i<result.length;i++){
 
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
+                cell1.innerHTML =(i+1)  
+                
             
                 cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
+                cell2.innerHTML = result[i].team_name
             
                 cell3 = newRow.insertCell(2)
                 cell3 = newRow.insertCell(2)
@@ -419,23 +407,20 @@ function leaderboard_Marathi(){
                 }
             
                 cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
+                cell4.innerHTML =result[i].timestamp
+                //result[i].f1_score
             
                 cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
+                cell5.innerHTML =result[i].submission_name
                 
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML =result[i].f1_score
+                
+              
               
             }
         
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
         
-            //alert( document.cookie)
            
         },  error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
@@ -465,22 +450,18 @@ function leaderboard_1BEng(){
             "task_name": "1B_English"
         }),
         success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
+          
             console.log(result);
             for(var i=0;i<result.length;i++){
 
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
+                cell1.innerHTML =(i+1)  
+                
             
                 cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
+                cell2.innerHTML = result[i].team_name
             
                 cell3 = newRow.insertCell(2)
                 cell3 = newRow.insertCell(2)
@@ -506,23 +487,18 @@ function leaderboard_1BEng(){
                 }
             
                 cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
+                cell4.innerHTML =result[i].timestamp
+                //result[i].f1_score
             
                 cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
+                cell5.innerHTML =result[i].submission_name
+                
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML =result[i].f1_score
                 
               
             }
         
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
-        
-            //alert( document.cookie)
            
         },  error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
@@ -551,22 +527,18 @@ function leaderboard_1BHin(){
             "task_name": "1B_Hindi"  
         }),
         success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
+      
             console.log(result);
             for(var i=0;i<result.length;i++){
 
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
+                cell1.innerHTML =(i+1)  
+                
             
                 cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
+                cell2.innerHTML = result[i].team_name
             
                 cell3 = newRow.insertCell(2)
                 cell3 = newRow.insertCell(2)
@@ -592,23 +564,18 @@ function leaderboard_1BHin(){
                 }
             
                 cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
+                cell4.innerHTML =result[i].timestamp
+                //result[i].f1_score
             
                 cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
+                cell5.innerHTML =result[i].submission_name
+                
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML =result[i].f1_score
                 
               
             }
         
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
-        
-            //alert( document.cookie)
            
         },  error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
@@ -637,22 +604,18 @@ function leaderboard_2ICHCL(){
             "task_name":"2_ICHCL"  
         }),
         success: function (result){
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
+           
             console.log(result);
             for(var i=0;i<result.length;i++){
 
                 var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
                 var newRow = table.insertRow(table.length)
                 cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
+                cell1.innerHTML =(i+1)  
+                
             
                 cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
+                cell2.innerHTML = result[i].team_name
             
                 cell3 = newRow.insertCell(2)
                 cell3 = newRow.insertCell(2)
@@ -678,23 +641,20 @@ function leaderboard_2ICHCL(){
                 }
             
                 cell4 = newRow.insertCell(3)
-                cell4.innerHTML =result[i].f1_score
+                cell4.innerHTML =result[i].timestamp
+                //result[i].f1_score
             
                 cell5 = newRow.insertCell(4)
-                var data='<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML =data
+                cell5.innerHTML =result[i].submission_name
+                
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML =result[i].f1_score
+                
+              
                 
               
             }
         
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-            
-        
-            //alert( document.cookie)
            
         },  error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {

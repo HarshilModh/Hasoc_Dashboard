@@ -1,9 +1,26 @@
+function validate(){
+    var email = document.getElementById("username") 
+    var password = document.getElementById("password")
+    if(email.value==""){
+    document.getElementById("Nameerror").innerHTML="Username Missing"
+    }else{
+        document.getElementById("Nameerror").innerHTML=""
+    }
+    if(password.value==""){
+        document.getElementById("passerror").innerHTML="Password Missing"
+        }else{
+            document.getElementById("passerror").innerHTML=""
+    
+        }
+
+
+}
 function login() {
     console.log("log in called")
     var email = document.getElementById("username").value
-        
     localStorage.setItem("User", email);
     var password = document.getElementById("password").value
+    
     console.log(email)
     console.log(password)
 

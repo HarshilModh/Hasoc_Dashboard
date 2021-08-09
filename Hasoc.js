@@ -114,6 +114,7 @@ function setlang(str) {
 
 
 async function submission() {
+   
     const url = "https://hasocsubmission.el.r.appspot.com/dashboard/submission";
     let username=`<input type=text id="Subname" class="swal2-input" placeholder="Please enter your submission name" style="width:85%;height:20%"></input><br><br>`
     let desc=`<textarea id="Desc" placeholder="Please enter your description" class="swal2-input" style="width:75%;height:35%"></textarea><br><br>`
@@ -235,8 +236,17 @@ async function submission() {
                 timer: 2000,
                 showConfirmButton: false
             })
-            team_data_timestamp_desc()
-                //show_tweets_index();
+            var sort=document.getElementById("Sorts").innerHTML
+            if(sort=="Sort by timestamp descending"){
+                team_data_timestamp_desc()
+            }
+            if(sort=="Sort by f1 score ascending"){
+                team_data_f1_asc()
+            }if(sort=="Sort by f1 score descending"){
+                team_data_f1_desc()
+            }if(sort=="Sort by timestamp ascending"){
+                team_data_timestamp_asc()
+            }
         }
     })
 }
@@ -350,7 +360,18 @@ function logout() {
 
     window.location = 'Login.html'
 }
+function password2(){
+    var password=document.getElementById("Password").value
+    var new_password = document.getElementById("NewPassword").value
+    if(password==new_password){
+        document.getElementById("passworderr").innerHTML="New Password cant be same"  
+        }
+        else{
+            document.getElementById("passworderr").innerHTML=""
+        }
+}
 function password(){
+    
     var new_password = document.getElementById("NewPassword").value
     var confirm_passowrd=document.getElementById("ConfirmPassword").value
     if(new_password==confirm_passowrd){
@@ -394,14 +415,10 @@ function changepassword() {
             Swal.fire({
                 icon: 'success',
                 title: 'Password Changed'
+                
             })
-
-            //     var token=result.token
-            //     // console.log(token);
-            //     document.cookie=`token=${token}`;
-            //     console.log(document.cookie);
-            //    // alert( document.cookie)
-            //     window.location = 'index.html';
+            logout()
+         
         },
         error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 402) {

@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="css/style.css">
 
     <title>Login #7</title>
+    <style>
+        *{background-color: #FFFFFF ;}
+    </style>
 </head>
 
 <body>
@@ -29,7 +32,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="images/undraw_remotely_2j6y.svg" alt="Image" class="img-fluid">
+                    <br><br><br>
+                    <img src="HASOC_Design_01.png" alt="Image" class="img-fluid">
                 </div>
                 <div class="col-md-6 contents">
                     <div class="row justify-content-center">
@@ -40,18 +44,20 @@
                             </div>
                             <form onsubmit="event.preventDefault();login()">
                                 <div class="form-group first">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username">
-
+                                    <label for="username"style="background-color: #EDF2F5;">Username</label>
+                                    <input type="text" class="form-control" id="username" onchange="validate()"> 
+                                    
                                 </div>
                                 <div class="form-group last mb-4">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password">
-
+                                    <label for="password" style="background-color: #EDF2F5;">Password</label>
+                                    <input type="password" class="form-control" id="password" onchange="validate()">
                                 </div>
+                                <span id="Nameerror" style="color: red;"><br></span><br>
+                                <span id="passerror" style="color: red;"></span>
+                            
 
 
-
+                                <br><br>
                                 <input type="submit" value="Log In" class="btn btn-block btn-primary">
 
                         </div>
