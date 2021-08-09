@@ -23,10 +23,12 @@ function leaderboard(){
     document.getElementById("navbarDropdownMenuLink").innerHTML=`Welcome ${team}`
     var task_name=localStorage.getItem("task_name")
     var tn=localStorage.getItem("tn")
+    document.getElementById("Tname").innerHTML=tn
     if(task_name==null){
+        console.log("Here");
         leaderboard_Eng()
     }
-    document.getElementById("Tname").innerHTML=tn
+    
 
     $.ajax({
         type: 'POST',
@@ -107,13 +109,15 @@ function set_task(td){
     console.log(task);
 }
 function leaderboard_Eng(){
-    var elements = document.cookie.split('=')
+    console.log("scsa");
+    document.getElementById("Tname").innerHTML="English Subtask A"
+
+    var elements =document.cookie.split('=')
 
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
-     document.getElementById("team_data").appendChild(x)
-     document.getElementById("Tname").innerHTML="English Subtask A"
+    document.getElementById("team_data").appendChild(x)
 
     $.ajax({
         type: 'POST',
@@ -123,7 +127,7 @@ function leaderboard_Eng(){
            'content-type':'application/json'
        },
         data:JSON.stringify( {
-            "task_name": "1A_English" 
+            "task_name":'1A_English' 
         }),
         success: function (result){
             // var request=new XMLHttpRequest();
