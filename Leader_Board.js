@@ -3,6 +3,77 @@ function logout(){
     localStorage.clear()
     window.location='Login.html'
 }
+function password(){
+    var new_password = document.getElementById("NewPassword").value
+    var confirm_passowrd=document.getElementById("ConfirmPassword").value
+    if(new_password==confirm_passowrd){
+        document.getElementById("passworderr").innerHTML=""}
+        else{
+            document.getElementById("passworderr").innerHTML="Password doesnt match"  
+        }
+}
+function changepassword() {
+    var elements = document.cookie.split('=')
+
+    var team = localStorage.getItem("User")
+    var password = document.getElementById("Password").value
+    var new_password = document.getElementById("NewPassword").value
+    var confirm_passowrd=document.getElementById("ConfirmPassword").value
+    console.log(password);
+    console.log(new_password);
+    console.log(confirm_passowrd);
+    if(new_password==confirm_passowrd){
+  // document.getElementById("passworderr").innerHTML=""
+
+    $.ajax({
+        type: 'POST',
+        url: "https://hasocsubmission.el.r.appspot.com/user/change_password",
+        headers: {
+            "x-access-token": elements[1],
+            'content-type': 'application/json'
+        },
+        data: JSON.stringify({
+            "team_name": team,
+            "password": password,
+            "new_password": new_password
+        }),
+        success: function(result) {
+            // var request=new XMLHttpRequest();
+            // token=request.getResponseHeader("x-mstr-authtoken")
+            console.log(result)
+
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Password Changed'
+            })
+
+            //     var token=result.token
+            //     // console.log(token);
+            //     document.cookie=`token=${token}`;
+            //     console.log(document.cookie);
+            //    // alert( document.cookie)
+            //     window.location = 'index.html';
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 402) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid password',
+
+                })
+            }
+            if (jqXHR.status == 401) {
+                window.location = "Login.html"
+                }
+            }
+        
+    });
+}
+else{
+   //document.getElementById("passworderr").innerHTML="Password doesnt match"
+}
+}
 function check_token(){
     var authtoken=document.cookie
     console.log(authtoken);
@@ -100,6 +171,10 @@ function leaderboard(){
         
             //alert( document.cookie)
            
+        },  error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
         });
 }
@@ -189,6 +264,10 @@ function leaderboard_Eng(){
         
             //alert( document.cookie)
            
+        },  error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
         });
 }
@@ -272,6 +351,10 @@ function leaderboard_Hindi(){
         
             //alert( document.cookie)
            
+        },  error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
         });
 }
@@ -354,6 +437,10 @@ function leaderboard_Marathi(){
         
             //alert( document.cookie)
            
+        },  error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
         });
 }
@@ -437,6 +524,10 @@ function leaderboard_1BEng(){
         
             //alert( document.cookie)
            
+        },  error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
         });
 }
@@ -519,6 +610,10 @@ function leaderboard_1BHin(){
         
             //alert( document.cookie)
            
+        },  error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
         });
 }
@@ -601,6 +696,10 @@ function leaderboard_2ICHCL(){
         
             //alert( document.cookie)
            
+        },  error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
         });
 }
