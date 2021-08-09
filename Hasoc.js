@@ -8,7 +8,13 @@ function check_token() {
         team_data()
     }
 }
+function deatils(td){
+    console.log("Hii");
+    selectedRow = td.parentElement.parentElement;
+    var task = selectedRow.cells[0].innerHTML
 
+    document.getElementById("Time").innerHTML=task
+}
 function set_task(td) {
     selectedRow = td.parentElement.parentElement;
     var task = selectedRow.cells[2].innerHTML
@@ -139,9 +145,18 @@ async function submission() {
             }
             var sel = document.getElementById("subtask_name")
             var subname=document.getElementById("Subname").value
+            if(subname.length==0){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Please Enter submission name',
+    
+                })  
+            }
             var opt = sel.options[sel.selectedIndex];
             var tasks_name = opt.value;
             console.log(tasks_name);
+            var elements = document.cookie.split('=')
+
             
             if (input.files && input.files[0]) {
                 const formData = new FormData();
@@ -158,20 +173,56 @@ async function submission() {
                         method: 'post',
                         body: formData,
                         headers: {
-                            "x-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJTaHJleSJ9.FBfNFLVee27tHmq8mvJ2w5MPVGTU0ZrhF-tWe46gSl8"
+                            "x-access-token": elements[1]
                         }
                     })
                     .then(response => {
                         //console.log(response)
+                        console.log(response.status)
+                        if (response.status==401) {
+                           window.location="Login.html"
+        
+                        }
+                        // if (response.status==409) {
+                        //     throw new Error(409)
+                        // }
                         if (response.status != 200) {
-                            throw new Error(response.statusText)
+                            throw new Error(response.status)
                         }
                         return response.json()
                     })
                     .catch(error => {
-                        Swal.showValidationMessage(
-                            `Request failed: ${error}`
-                        )
+                        console.log(error);
+
+                        
+                        if(error=='Error: 408'){
+                            Swal.showValidationMessage(
+                                `Request failed:maximum submission exceeded`
+                            )
+                        }
+                        
+                        if(error=='Error: 406'){
+                            Swal.showValidationMessage(
+                                `Request failed:missinng tweet id or unknown id found`
+                            )
+                        }
+                        
+                        if(error=='Error: 405'){
+                            Swal.showValidationMessage(
+                                `Request failed:unknown or empty labels found`
+                            )
+                        }
+                        if(error=='Error: 403'){
+                            Swal.showValidationMessage(
+                                `Request failed:wrong columns`
+                            )
+                        }
+                        if(error=='Error: 409'){
+                            console.log("In 409");
+                            Swal.showValidationMessage(
+                                `Request failed:can't use same submission name for multiple submissions`
+                            )
+                        } 
                     })
             }
         },
@@ -257,7 +308,8 @@ function team_data() {
                 cell4.innerHTML = result[i].f1_score
 
                 cell5 = newRow.insertCell(4)
-                var data = '<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
+                var data = '<td><button class="btn btn-info" onclick="deatils(this)" data-toggle="modal" data-target="#myModal3"  >Deatils</button></td>'
+                //cell5.innerHTML = result[i].accuracy
                 cell5.innerHTML = data
 
                 cell6 = newRow.insertCell(5)
