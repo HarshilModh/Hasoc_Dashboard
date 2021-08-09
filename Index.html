@@ -318,14 +318,14 @@
         <div class="col-md-8">
             <ul class="nav">
                 <li class="nav-item dropdown" style="font-size:large;">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:cadetblue">
+                    <a class="nav-link dropdown-toggle" href="#" id="Sorts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:cadetblue">
                 Sort By
               </a>
 
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" onclick="team_data_f1_asc()">score ascending</a>
-                        <a class="dropdown-item" onclick="team_data_f1_desc()">score descending</a>
+                        <a class="dropdown-item" onclick="team_data_f1_asc()">f1 score ascending</a>
+                        <a class="dropdown-item" onclick="team_data_f1_desc()">f1 score descending</a>
                         <a class="dropdown-item" onclick="team_data_timestamp_asc()">Timestamp ascending</a>
                         <a class="dropdown-item" onclick="team_data_timestamp_desc()">Timestamp descending</a>
 
@@ -335,11 +335,11 @@
         </div>
 
         <div class="col-md-2 " id="Guide">
-            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal2">Submision Guidelines</button>
+            <button  class="btn btn-info" data-toggle="modal" data-target="#myModal2">Submision Guidelines</button>
 
         </div>
         <div class="col-md-2">
-            <button onclick="submission()">Submit Another Run</button>
+            <button  class="btn btn-info" onclick="submission()">Submit Another Run</button>
 
         </div>
 
@@ -385,7 +385,8 @@
                         Guidelines
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-info" data-dismiss="modal" data-toggle="modal" data-target="#myModal">Got it</button>
+                        <!-- <button type="submit" class="btn btn-info" data-dismiss="modal" data-toggle="modal" data-target="#myModal">Got it</button> -->
+                        <button type="submit" class="btn btn-info" data-dismiss="modal" onclick="submission()">Got it</button>
                         <button type="submit" class="btn btn-info" data-dismiss="modal">Read more</button>
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -437,7 +438,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="NewPassword">
+                                <input type="password" class="form-control" id="ConfirmPassword" onchange="password()   ">
+                                <span id="passworderr" style="color: red;"></span>
                             </div>
 
                             <button type="submit" class="btn btn-info">Submit</button>

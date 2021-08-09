@@ -28,6 +28,7 @@ function login() {
                 // console.log(token);
             document.cookie = `token=${token}`;
             console.log(document.cookie);
+
             // alert( document.cookie)
             window.location = 'Index.html';
         },

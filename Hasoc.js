@@ -12,8 +12,35 @@ function check_token() {
 function set_task(td) {
     selectedRow = td.parentElement.parentElement;
     var task = selectedRow.cells[2].innerHTML
+    localStorage.setItem("tn",task)
     console.log(task);
-    localStorage.setItem("task_name", task)
+    if(task=="English Subtask A"){
+        task= "1A_English"
+
+    }if(task=="English Subtask B"){
+        task= "1B_English"
+        
+        
+
+    }if(task=="Hindi Subtask A"){
+        task= "1A_Hindi"
+        
+        
+
+    }if(task=="Hindi Subtask B"){
+        task= "1B_Hindi"
+    }
+    if(task=="Marathi Subtask A"){
+        task= "1A_Marathi"
+
+    }if(task=="Subtask 2"){
+        task= "2_ICHCL"
+
+
+    }
+    console.log(task);
+
+    localStorage.setItem("task_name",task)
 
 
 }
@@ -76,35 +103,55 @@ function setlang(str) {
             console.log(jqXHR.status)
         }
     });
+    
 })*/
 
 
 async function submission() {
     const url = "https://hasocsubmission.el.r.appspot.com/dashboard/submission";
-    let select_box_html = `<select id="subtask_name" class="swal2-input"><option value="volvo">Volvo</option>
+    let username=`<input type=text id="Subname" class="swal2-input" placeholder="Please enter your submission name" style="width:85%;height:20%"></input><br><br>`
+    let desc=`<textarea id="Desc" placeholder="Please enter your description" class="swal2-input" style="width:75%;height:35%"></textarea><br><br>`
+    let select_box_html = `<select id="subtask_name" class="swal2-input">
     <option value="1A_English">English Subtask A</option>
     <option value="1A_Marathi">Marathi Subtask A</option>
-    <option value="1B_Engish">English Subtask B</option>
+    <option value="1B_English">English Subtask B</option>
+    <option value="1A_Hindi">Hindi Subtask A</option>
+    <option value="1B_Hindi">Hindi Subtask B</option>
     <option value="2_ICHCL">Subtask 2</option></select>`
     Swal.fire({
         title: 'Submit your file here',
-        html: `${select_box_html}<input type="file" id="file" class="swal2-input" placeholder="file">`,
+        html: `${select_box_html}<br><br>${username}${desc}<input type="file" id="file" class="" placeholder="file">`,
         confirmButtonText: 'SUBMIT',
         focusConfirm: false,
         preConfirm: () => {
+            var team_name=localStorage.getItem("User")
+            var des=document.getElementById("Desc").value
             var input = document.getElementById("file");
+            var ex= document.getElementById("file").value;
+            ex=ex.split('.').pop()
+            if (ex != "csv") {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Please upload only csv file',
+    
+                })
+            }
             var sel = document.getElementById("subtask_name")
+            var subname=document.getElementById("Subname").value
             var opt = sel.options[sel.selectedIndex];
-            let task_name = opt.value;
+            var tasks_name = opt.value;
+            console.log(tasks_name);
+            
             if (input.files && input.files[0]) {
                 const formData = new FormData();
                 formData.append('file', input.files[0])
                     //let myFile = input.files[0]
                     //formData.append('file', myFile);
-                formData.append('task_name', task_name);
-                formData.append('team_name', 'Shrey');
-                formData.append('description', 'dahjkda');
-                formData.append('submission_name', 'szncmcn')
+                formData.append('task_name',tasks_name);
+                formData.append('team_name',team_name);
+                formData.append('description',des);
+                formData.append('submission_name', subname)
                 console.log(input.files)
                     //console.log(story_name)
                 return fetch(url, {
@@ -145,6 +192,10 @@ async function submission() {
 
 function team_data() {
     //console.log(User);
+    document.getElementById("Sorts").innerHTML="Sort by timestamp descending"
+
+    var elements = document.cookie.split('=')
+
     var team = localStorage.getItem("User")
     console.log(team);
 
@@ -153,7 +204,7 @@ function team_data() {
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/timestamp_desc",
         headers: {
-            "x-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
             'content-type': 'application/json'
         },
         data: JSON.stringify({
@@ -178,7 +229,27 @@ function team_data() {
                 cell2.innerHTML = result[i].submission_name
 
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML = result[i].task_name
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
+                
                     // var taskname=result[i].task_name
                     // localStorage.setItem("task_name",taskname)
 
@@ -212,26 +283,49 @@ function team_data() {
                 document.getElementById("team_data").innerHTML = "Button"
 
             }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
     });
 }
 
 function logout() {
     document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    localStorage.clear()
+
     window.location = 'Login.html'
+}
+function password(){
+    var new_password = document.getElementById("NewPassword").value
+    var confirm_passowrd=document.getElementById("ConfirmPassword").value
+    if(new_password==confirm_passowrd){
+        document.getElementById("passworderr").innerHTML=""}
+        else{
+            document.getElementById("passworderr").innerHTML="Password doesnt match"  
+        }
 }
 
 function changepassword() {
+    var elements = document.cookie.split('=')
+
     var team = localStorage.getItem("User")
     var password = document.getElementById("Password").value
     var new_password = document.getElementById("NewPassword").value
+    var confirm_passowrd=document.getElementById("ConfirmPassword").value
     console.log(password);
     console.log(new_password);
+    console.log(confirm_passowrd);
+    if(new_password==confirm_passowrd){
+  // document.getElementById("passworderr").innerHTML=""
+
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/user/change_password",
         headers: {
-            "x-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token": elements[1],
             'content-type': 'application/json'
         },
         data: JSON.stringify({
@@ -259,18 +353,22 @@ function changepassword() {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 402) {
-
-
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid password',
 
                 })
-
-
             }
-        }
+            if (jqXHR.status == 401) {
+                window.location = "Login.html"
+                }
+            }
+        
     });
+}
+else{
+   //document.getElementById("passworderr").innerHTML="Password doesnt match"
+}
 }
 
 function team_data_f1_asc() {
@@ -278,8 +376,9 @@ function team_data_f1_asc() {
     // for(var i=0;i<table.length;i++){
     //     console.log(i);
     // }
-    var authtoken = document.cookie
-
+    document.getElementById("Sorts").innerHTML="Sort by f1 score ascending"
+    var elements = document.cookie.split('=')
+    //console.log(elements[1]);
     var team = localStorage.getItem("User")
     console.log(team);
     var raw = document.getElementsByTagName("tbody")[0]
@@ -290,7 +389,7 @@ function team_data_f1_asc() {
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/f1_asc",
         headers: {
-            "x-access-token": authtoken,
+            "x-access-token": elements[1],
             'content-type': 'application/json'
         },
         data: JSON.stringify({
@@ -315,7 +414,27 @@ function team_data_f1_asc() {
                 cell2.innerHTML = result[i].submission_name
 
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML = result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
 
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML = result[i].f1_score
@@ -329,6 +448,90 @@ function team_data_f1_asc() {
 
             }
 
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
+        }
+    });
+}
+
+function team_data_f1_desc() {
+    document.getElementById("Sorts").innerHTML="Sort by f1 score descending"
+
+    var elements = document.cookie.split('=')
+
+    var team = localStorage.getItem("User")
+    console.log(team);
+    var raw = document.getElementsByTagName("tbody")[0]
+    raw.parentNode.removeChild(raw)
+    var x = document.createElement("tbody")
+    document.getElementById("team_data").appendChild(x)
+    $.ajax({
+
+
+        type: 'POST',
+        url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/f1_desc",
+        headers: {
+            "x-access-token": elements[1],
+            'content-type': 'application/json'
+        },
+        data: JSON.stringify({
+            "team_name": team
+        }),
+        success: function(result) {
+            // var request=new XMLHttpRequest();
+            // token=request.getResponseHeader("x-mstr-authtoken")
+            //console.log(result.token)
+            //var token=result.token
+            // console.log(token);
+            //document.cookie=token;
+
+            console.log(result);
+            for (var i = 0; i < result.length; i++) {
+                var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
+                var newRow = table.insertRow(table.length)
+                cell1 = newRow.insertCell(0)
+                cell1.innerHTML = result[i].timestamp
+
+                cell2 = newRow.insertCell(1)
+                cell2.innerHTML = result[i].submission_name
+
+                cell3 = newRow.insertCell(2)
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
+
+                cell4 = newRow.insertCell(3)
+                cell4.innerHTML = result[i].f1_score
+
+                cell5 = newRow.insertCell(4)
+                var data = '<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
+                cell5.innerHTML = data
+
+                cell6 = newRow.insertCell(5)
+                cell6.innerHTML = ' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
+
+            }
 
             // var res=result[1].description;
             // console.log(result[1].description);
@@ -342,86 +545,17 @@ function team_data_f1_asc() {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
-                window.location = "Login.html"
+            window.location = "Login.html"
             }
-        }
-    });
-}
-
-function team_data_f1_desc() {
-    // var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-    // for(var i=0;i<table.length;i++){
-    //     console.log(i);
-    // }
-    var team = localStorage.getItem("User")
-    console.log(team);
-    var raw = document.getElementsByTagName("tbody")[0]
-    raw.parentNode.removeChild(raw)
-    var x = document.createElement("tbody")
-    document.getElementById("team_data").appendChild(x)
-    $.ajax({
-
-
-        type: 'POST',
-        url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/f1_desc",
-        headers: {
-            "x-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
-            'content-type': 'application/json'
-        },
-        data: JSON.stringify({
-            "team_name": team
-        }),
-        success: function(result) {
-            // var request=new XMLHttpRequest();
-            // token=request.getResponseHeader("x-mstr-authtoken")
-            //console.log(result.token)
-            //var token=result.token
-            // console.log(token);
-            //document.cookie=token;
-
-            console.log(result);
-            for (var i = 0; i < result.length; i++) {
-                var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-                var newRow = table.insertRow(table.length)
-                cell1 = newRow.insertCell(0)
-                cell1.innerHTML = result[i].timestamp
-
-                cell2 = newRow.insertCell(1)
-                cell2.innerHTML = result[i].submission_name
-
-                cell3 = newRow.insertCell(2)
-                cell3.innerHTML = result[i].task_name
-
-                cell4 = newRow.insertCell(3)
-                cell4.innerHTML = result[i].f1_score
-
-                cell5 = newRow.insertCell(4)
-                var data = '<td><button class="btn btn-info" data-toggle="modal" data-target="#myModal3" >Deatils</button></td>'
-                cell5.innerHTML = data
-
-                cell6 = newRow.insertCell(5)
-                cell6.innerHTML = ' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
-
-            }
-
-            // var res=result[1].description;
-            // console.log(result[1].description);
-            // console.log(result[1].task_name);
-            // console.log(result[1].f1_score);
-            // console.log(result[1].submission_name);
-
-
-            //alert( document.cookie)
-
         }
     });
 }
 
 function team_data_timestamp_asc() {
-    // var table = document.getElementById("team_data").getElementsByTagName('tbody')[0]
-    // for(var i=0;i<table.length;i++){
-    //     console.log(i);
-    // }
+    document.getElementById("Sorts").innerHTML="Sort by timestamp ascending"
+    
+    var elements = document.cookie.split('=')
+
     var team = localStorage.getItem("User")
     console.log(team);
     var raw = document.getElementsByTagName("tbody")[0]
@@ -432,7 +566,7 @@ function team_data_timestamp_asc() {
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/timestamp_asc",
         headers: {
-            "x-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token": elements[1],
             'content-type': 'application/json'
         },
         data: JSON.stringify({
@@ -457,7 +591,27 @@ function team_data_timestamp_asc() {
                 cell2.innerHTML = result[i].submission_name
 
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML = result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
 
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML = result[i].f1_score
@@ -480,6 +634,11 @@ function team_data_timestamp_asc() {
 
             //alert( document.cookie)
 
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
     });
 }
@@ -489,6 +648,10 @@ function team_data_timestamp_desc() {
     // for(var i=0;i<table.length;i++){
     //     console.log(i);
     // }
+    document.getElementById("Sorts").innerHTML="Sort by timestamp descending"
+
+    var elements = document.cookie.split('=')
+
     var team = localStorage.getItem("User")
     console.log(team);
     var raw = document.getElementsByTagName("tbody")[0]
@@ -499,7 +662,7 @@ function team_data_timestamp_desc() {
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/dashboard/team_data/timestamp_desc",
         headers: {
-            "x-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token": elements[1],
             'content-type': 'application/json'
         },
         data: JSON.stringify({
@@ -524,7 +687,27 @@ function team_data_timestamp_desc() {
                 cell2.innerHTML = result[i].submission_name
 
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML = result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
 
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML = result[i].f1_score
@@ -534,7 +717,7 @@ function team_data_timestamp_desc() {
                 cell5.innerHTML = data
 
                 cell6 = newRow.insertCell(5)
-                cell6.innerHTML = ' <td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
+                cell6.innerHTML = '<td><button class="btn btn-info" onclick="set_task(this)"><a href="Leader_Board.html" style="text-decoration: none; color: white; ">Rank</a> </button></td>'
 
             }
 
@@ -547,6 +730,11 @@ function team_data_timestamp_desc() {
 
             //alert( document.cookie)
 
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+            window.location = "Login.html"
+            }
         }
     });
 }

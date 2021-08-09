@@ -1,5 +1,6 @@
 function logout(){
     document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+    localStorage.clear()
     window.location='Login.html'
 }
 function check_token(){
@@ -11,19 +12,27 @@ function check_token(){
     }
     else{
         leaderboard()
-    }
+        }
 }
 function leaderboard(){
+    
     var team=localStorage.getItem("User")
     console.log(team);
+    var elements = document.cookie.split('=')
 
     document.getElementById("navbarDropdownMenuLink").innerHTML=`Welcome ${team}`
     var task_name=localStorage.getItem("task_name")
+    var tn=localStorage.getItem("tn")
+    if(task_name==null){
+        leaderboard_Eng()
+    }
+    document.getElementById("Tname").innerHTML=tn
+
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
            'content-type':'application/json'
        },
         data:JSON.stringify( {
@@ -48,7 +57,27 @@ function leaderboard(){
                 cell2.innerHTML = result[i].submission_name
             
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
@@ -78,15 +107,19 @@ function set_task(td){
     console.log(task);
 }
 function leaderboard_Eng(){
+    var elements = document.cookie.split('=')
+
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
      document.getElementById("team_data").appendChild(x)
+     document.getElementById("Tname").innerHTML="English Subtask A"
+
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
            'content-type':'application/json'
        },
         data:JSON.stringify( {
@@ -111,7 +144,27 @@ function leaderboard_Eng(){
                 cell2.innerHTML = result[i].submission_name
             
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
@@ -136,15 +189,20 @@ function leaderboard_Eng(){
         });
 }
 function leaderboard_Hindi(){
+    var elements = document.cookie.split('=')
+
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
      document.getElementById("team_data").appendChild(x)
+     document.getElementById("Tname").innerHTML="Hindi Subtask A"
+
+     
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
            'content-type':'application/json'
        },
         data:JSON.stringify( {
@@ -169,7 +227,27 @@ function leaderboard_Hindi(){
                 cell2.innerHTML = result[i].submission_name
             
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
@@ -194,15 +272,19 @@ function leaderboard_Hindi(){
         });
 }
 function leaderboard_Marathi(){
+    var elements = document.cookie.split('=')
+
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
      document.getElementById("team_data").appendChild(x)
+     document.getElementById("Tname").innerHTML="Marathi Subtask A"
+
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
            'content-type':'application/json'
        },
         data:JSON.stringify( {
@@ -227,7 +309,27 @@ function leaderboard_Marathi(){
                 cell2.innerHTML = result[i].submission_name
             
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
@@ -252,15 +354,20 @@ function leaderboard_Marathi(){
         });
 }
 function leaderboard_1BEng(){
+    
+    var elements = document.cookie.split('=')
+
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
      document.getElementById("team_data").appendChild(x)
+     document.getElementById("Tname").innerHTML="English Subtask B"
+
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
            'content-type':'application/json'
        },
         data:JSON.stringify( {
@@ -285,7 +392,27 @@ function leaderboard_1BEng(){
                 cell2.innerHTML = result[i].submission_name
             
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
@@ -310,15 +437,19 @@ function leaderboard_1BEng(){
         });
 }
 function leaderboard_1BHin(){
+    var elements = document.cookie.split('=')
+
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
      document.getElementById("team_data").appendChild(x)
+     document.getElementById("Tname").innerHTML="Hindi Subtask B"
+
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
            'content-type':'application/json'
        },
         data:JSON.stringify( {
@@ -343,7 +474,27 @@ function leaderboard_1BHin(){
                 cell2.innerHTML = result[i].submission_name
             
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
@@ -368,15 +519,19 @@ function leaderboard_1BHin(){
         });
 }
 function leaderboard_2ICHCL(){
+    var elements = document.cookie.split('=')
+
     var raw=document.getElementsByTagName("tbody")[0]
     raw.parentNode.removeChild(raw)
     var x=document.createElement("tbody")
      document.getElementById("team_data").appendChild(x)
+     document.getElementById("Tname").innerHTML="Subtask 2"
+
     $.ajax({
         type: 'POST',
         url: "https://hasocsubmission.el.r.appspot.com/leaderboard",
        headers:{
-            "x-access-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZWFtX25hbWUiOiJQYXZhbiJ9.iy6eVZITa6mQqvjP4EPw6cXkrVA7h8_nPlch2B0mb10",
+            "x-access-token":elements[1],
            'content-type':'application/json'
        },
         data:JSON.stringify( {
@@ -401,7 +556,27 @@ function leaderboard_2ICHCL(){
                 cell2.innerHTML = result[i].submission_name
             
                 cell3 = newRow.insertCell(2)
-                cell3.innerHTML =result[i].task_name
+                cell3 = newRow.insertCell(2)
+                if(result[i].task_name=="1A_English"){
+                    cell3.innerHTML = "English Subtask A"
+
+                }if(result[i].task_name=="1B_English"){
+                    cell3.innerHTML = "English Subtask B"
+
+                }if(result[i].task_name=="1A_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask A"
+
+                }if(result[i].task_name=="1B_Hindi"){
+                    cell3.innerHTML = "Hindi Subtask B"
+
+                }
+                if(result[i].task_name=="1A_Marathi"){
+                    cell3.innerHTML = "Marathi Subtask A"
+
+                }if(result[i].task_name=="2_ICHCL"){
+                    cell3.innerHTML = "Subtask 2"
+
+                }
             
                 cell4 = newRow.insertCell(3)
                 cell4.innerHTML =result[i].f1_score
